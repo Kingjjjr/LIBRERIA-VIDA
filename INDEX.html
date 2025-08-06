@@ -128,12 +128,6 @@
       position: relative;
     }
 
-    .modal-content img {
-      width: 100%;
-      height: auto;
-      margin-bottom: 1em;
-    }
-
     .close {
       position: absolute;
       top: 10px;
@@ -143,20 +137,39 @@
       color: var(--azul);
     }
 
-    /* Media Queries para Móviles y Tablets */
+    .galeria {
+      position: relative;
+    }
+
+    .galeria-img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .galeria-controles {
+      position: absolute;
+      top: 45%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+    }
+
+    .galeria-controles button {
+      background-color: rgba(0,0,0,0.5);
+      border: none;
+      color: white;
+      padding: 0.5em 1em;
+      font-size: 1.2em;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+
     @media (max-width: 768px) {
       header {
         flex-direction: column;
         text-align: center;
-      }
-
-      .filtros {
-        padding: 0.5em;
-      }
-
-      .filtros button {
-        margin: 0.3em 0.2em;
-        font-size: 0.9em;
       }
 
       .producto img {
@@ -165,11 +178,6 @@
 
       .modal-content {
         padding: 1em;
-        max-width: 90%;
-      }
-
-      header h1 {
-        font-size: 1.2rem;
       }
     }
 
@@ -182,26 +190,6 @@
       .producto img {
         height: 180px;
       }
-
-      .producto h3 {
-        font-size: 1rem;
-      }
-
-      .producto p {
-        font-size: 0.9rem;
-      }
-
-      .modal-content h2 {
-        font-size: 1.2rem;
-      }
-
-      .modal-content p {
-        font-size: 1rem;
-      }
-
-      header h1 {
-        font-size: 1rem;
-      }
     }
   </style>
 </head>
@@ -209,7 +197,7 @@
 
 <header>
   <h1>Librería Vida – Biblias</h1>
-  <a href="Untitled-1.html">Volver al inicio</a>
+  <a href="#">Volver al inicio</a>
 </header>
 
 <div class="filtros">
@@ -218,9 +206,7 @@
   <button onclick="filtrar('rvr60')">RVR60</button>
   <button onclick="filtrar('ntv')">NTV</button>
   <button onclick="filtrar('nvi')">NVI</button>
-  <button onclick="filtrar('ESTUDIO')">ESTUDIO</button>
-
-  <br /><br />
+  <button onclick="filtrar('ESTUDIO')">ESTUDIO</button><br><br>
   <strong>Filtrar por tamaño:</strong>
   <button onclick="filtrar('bolsillo')">Bolsillo</button>
   <button onclick="filtrar('compacta')">Compacta</button>
@@ -231,8 +217,8 @@
 <main class="grid-productos" id="productos">
   <div class="producto rvr60 supergigante" onclick="abrirModal('rvr60-1')">
     <img src="SUPER GIGANTE.jpeg" alt="Biblia RVR60" />
+   <p>$1100 MXN</p>
     <h3>Biblia RVR60 Letra Supergigante</h3>
-    <p>$1100 MXN</p>
   </div>
 
   <div class="producto ntv compacta" onclick="abrirModal('ntv-1')">
@@ -241,24 +227,36 @@
     <p>$895 MXN</p>
   </div>
 
-  <div class="producto nvi manual" onclick="abrirModal('NVI-1')">
+  <div class="producto nvi manual" onclick="abrirModal('nvi-1')">
     <img src="TELOS.jpeg" alt="Biblia NVI" />
     <h3>Biblia NVI Telos</h3>
     <p>$1210 MXN</p>
   </div>
 
-  <div class="producto ESTUDIO" onclick="abrirModal('ESTUDIO-1')">
-    <img src="DIARIO VIVIR.jpeg" alt="Biblia Diario Vivir ESTUDIO" />
+  <div class="producto ESTUDIO" onclick="abrirModal('estudio-1')">
+    <img src="DIARIO VIVIR.jpeg" alt="Biblia Estudio Diario Vivir" />
+    <h3>Biblia Estudio Diario Vivir</h3>
+    <p>$2600 MXN</p>
+  </div>
+   
+  <div class="producto ESTUDIO" onclick="abrirModal('estudio-1')">
+    <img src="DIARIO VIVIR.jpeg" alt="Biblia Estudio Diario Vivir" />
     <h3>Biblia Estudio Diario Vivir</h3>
     <p>$2600 MXN</p>
   </div>
 </main>
 
-<!-- MODALES -->
+<!-- MODALES CON GALERÍA -->
 <div id="rvr60-1" class="modal">
   <div class="modal-content">
     <span class="close" onclick="cerrarModal('rvr60-1')">&times;</span>
-    <img src="SUPER GIGANTE.jpeg" alt="Biblia RVR60" />
+    <div class="galeria">
+      <img class="galeria-img" src="SUPER GIGANTE.jpeg" alt="" id="galeria-rvr60">
+      <div class="galeria-controles">
+        <button onclick="cambiarImagen('rvr60', -1)">&lt;</button>
+        <button onclick="cambiarImagen('rvr60', 1)">&gt;</button>
+      </div>
+    </div>
     <h2>Biblia RVR60 Letra Supergigante</h2>
     <p>Concordancia, palabras de Jesús en rojo, tapa imitación piel.</p>
     <p><strong>$1100 MXN</strong></p>
@@ -268,28 +266,46 @@
 <div id="ntv-1" class="modal">
   <div class="modal-content">
     <span class="close" onclick="cerrarModal('ntv-1')">&times;</span>
-    <img src="COMPACTA.jpeg" alt="Biblia NTV" />
+    <div class="galeria">
+      <img class="galeria-img" src="COMPACTA.jpeg" alt="" id="galeria-ntv">
+      <div class="galeria-controles">
+        <button onclick="cambiarImagen('ntv', -1)">&lt;</button>
+        <button onclick="cambiarImagen('ntv', 1)">&gt;</button>
+      </div>
+    </div>
     <h2>Biblia NTV Filament Compacta</h2>
     <p>Incluye app interactiva, comentarios de estudio, mapas y devocionales.</p>
     <p><strong>$895 MXN</strong></p>
   </div>
 </div>
 
-<div id="NVI-1" class="modal">
+<div id="nvi-1" class="modal">
   <div class="modal-content">
-    <span class="close" onclick="cerrarModal('NVI-1')">&times;</span>
-    <img src="TELOS.jpeg" alt="Biblia NVI" />
-    <h2>Biblia NVI Manual</h2>
+    <span class="close" onclick="cerrarModal('nvi-1')">&times;</span>
+    <div class="galeria">
+       <img class="galeria-img" src="TELOS.jpeg" alt="" id="galeria-nvi">
+      <div class="galeria-controles">
+        <button onclick="cambiarImagen('nvi', -1)">&lt;</button>
+        <button onclick="cambiarImagen('nvi', 1)">&gt;</button>
+      </div>
+    </div>
+    <h2>Biblia NVI Telos</h2>
     <p>Traducción clara y sencilla, ideal para llevar a todos lados.</p>
     <p><strong>$1210 MXN</strong></p>
   </div>
 </div>
 
-<div id="ESTUDIO-1" class="modal">
+<div id="estudio-1" class="modal">
   <div class="modal-content">
-    <span class="close" onclick="cerrarModal('ESTUDIO-1')">&times;</span>
-    <img src="DIARIO VIVIR.jpeg" alt="Biblia Estudio" />
-    <h2>Biblia Diario Vivir Estudio</h2>
+    <span class="close" onclick="cerrarModal('estudio-1')">&times;</span>
+    <div class="galeria">
+      <img class="galeria-img" src="DIARIO VIVIR.jpeg" alt="" id="galeria-estudio">
+      <div class="galeria-controles">
+        <button onclick="cambiarImagen('estudio', -1)">&lt;</button>
+        <button onclick="cambiarImagen('estudio', 1)">&gt;</button>
+      </div>
+    </div>
+    <h2>Biblia Estudio Diario Vivir</h2>
     <p>La mejor Biblia de estudio, con notas explicativas y contexto cultural.</p>
     <p><strong>$2600 MXN</strong></p>
   </div>
@@ -319,6 +335,24 @@
     if (event.target.classList.contains('modal')) {
       event.target.style.display = "none";
     }
+  }
+
+  // Galerías por producto
+  const imagenes = {
+    rvr60: ['SUPER GIGANTE.jpeg', 'SUPER GIGANTE2.jpeg'],
+    ntv: ['COMPACTA.jpeg', 'COMPACTA2.jpeg'],
+    nvi: ['TELOS.jpeg', 'TELOS 2.jpg'],
+    estudio: ['DIARIO VIVIR.jpeg', 'DIARIO VIVIR2.jpeg']
+  };
+
+  const indices = { rvr60: 0, ntv: 0, nvi: 0, estudio: 0 };
+
+  function cambiarImagen(producto, cambio) {
+    indices[producto] += cambio;
+    const total = imagenes[producto].length;
+    if (indices[producto] < 0) indices[producto] = total - 1;
+    if (indices[producto] >= total) indices[producto] = 0;
+    document.getElementById(`galeria-${producto}`).src = imagenes[producto][indices[producto]];
   }
 </script>
 
